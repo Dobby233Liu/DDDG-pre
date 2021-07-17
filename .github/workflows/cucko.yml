@@ -3,6 +3,9 @@ on: [push, workflow_dispatch]
 jobs:
   duckgiri:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      contents: write
     steps:
       - uses: actions/setup-node@v2
         with:
@@ -15,7 +18,7 @@ jobs:
           ref: master
           path: main
       - env:
-          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # PAT }}
         run: |
           cd main
           npm install
@@ -26,4 +29,4 @@ jobs:
       - uses: Dobby233Liu/github-pages-deploy-action@dev-no-crap
         with:
           branch: gh-pages
-          folder: dist
+          folder: main/dist
