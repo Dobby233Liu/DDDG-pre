@@ -1,0 +1,23 @@
+on: [workflow_dispatch]
+
+jobs:
+  duckgiri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: edave64/Doki-Doki-Dialog-Generator
+          ref: master
+          path: main
+      - run: |
+          cd main
+          npm install
+          npm run lint
+          npm run assetConversions
+          npm run build:web
+      # I use bot creds so this
+      - uses: Dobby233Liu/github-pages-deploy-action@dev-no-crap
+        with:
+          branch: gh-pages
+          folder: dist
