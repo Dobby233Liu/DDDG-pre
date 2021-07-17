@@ -9,7 +9,8 @@ jobs:
     steps:
       - run: |
           sudo apt install -y pngquant
-          sudo npm install --global zopflipng-bin
+          wget https://github.com/imagemin/zopflipng-bin/blob/main/vendor/linux/zopflipng -O /usr/local/bin/zopflipng
+          chmod 0755 /usr/local/bin/zopflipng
           curl -s https://raw.githubusercontent.com/Intervox/node-webp/latest/bin/install_webp | sudo bash
       - uses: actions/setup-node@v2
         with:
